@@ -21,8 +21,9 @@ export function activate(context: vscode.ExtensionContext) {
   registerCommand(context, REFRESH_INSTANCES, () => refreshInstancesHandler(instanceDataProvider));
   registerCommand(context, OPEN_WEB_URL, openWebUrlHandler);
 
-  // Refresh the tree view every 30 sec.
-  setInterval(() => refreshInstancesHandler(instanceDataProvider), 30 * 1000);
+  // Refresh the tree view every X sec.
+  const seconds: number = vscode.workspace.getConfiguration("gitlabMergeRequestUpvotes").get<number>("refreshInterval") || 30;
+  setInterval(() => refreshInstancesHandler(instanceDataProvider), seconds * 1000);
 }
 
 function registerCommand(
