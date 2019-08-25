@@ -1,8 +1,9 @@
 {
-	"name": "yoannfleurydev-gitlab-merge-request-upvotes",
+	"name": "gitlab-merge-request-upvotes",
 	"displayName": "Gitlab Merge Request Upvotes",
 	"description": "Follow the upvotes on your Gitlab Merge Request",
 	"version": "0.0.1",
+	"publisher": "yoannfleurydev",
 	"engines": {
 		"vscode": "^1.37.0"
 	},
@@ -10,15 +11,15 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.addInstance",
-		"onCommand:extension.removeInstance",
+		"onCommand:gitlabMergeRequestUpvotes.addInstance",
+		"onCommand:gitlabMergeRequestUpvotes.removeInstance",
 		"onView:instancesTreeView"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.refreshEntry",
+				"command": "gitlabMergeRequestUpvotes.refreshTreeView",
 				"title": "Refresh",
 				"icon": {
 					"light": "resources/light/refresh.svg",
@@ -27,12 +28,12 @@
 				"category": "GitLab MR Upvotes"
 			},
 			{
-				"command": "extension.addInstance",
+				"command": "gitlabMergeRequestUpvotes.addInstance",
 				"title": "Add instance",
 				"category": "GitLab MR Upvotes"
 			},
 			{
-				"command": "extension.removeInstance",
+				"command": "gitlabMergeRequestUpvotes.removeInstance",
 				"title": "Remove Instance",
 				"category": "GitLab MR Upvotes"
 			}
@@ -48,7 +49,7 @@
 		"menus": {
 			"view/title": [
 				{
-					"command": "extension.refreshEntry",
+					"command": "gitlabMergeRequestUpvotes.refreshTreeView",
 					"when": "view == instancesTreeView",
 					"group": "navigation"
 				}
