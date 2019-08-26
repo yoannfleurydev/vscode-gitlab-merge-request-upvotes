@@ -1,12 +1,22 @@
 {
   "name": "gitlab-merge-request-upvotes",
   "displayName": "Gitlab Merge Request Upvotes",
-  "description": "Follow the upvotes on your Gitlab Merge Request",
+  "description": "Follow the upvotes on your Gitlab Merge Request using a VS Code Tree View in the Explorer",
+  "homepage": "https://github.com/yoannfleurydev/vscode-gitlab-merge-request-upvotes/blob/master/README.md",
+  "icon": "images/gitlab-merge-request-upvotes.png",
+  "license": "MIT",
+  "galleryBanner": {
+    "color": "#081D22",
+    "theme": "dark"
+  },
+  "bugs": {
+    "url": "https://github.com/yoannfleurydev/vscode-gitlab-merge-request-upvotes/issues"
+  },
   "version": "0.0.1",
   "publisher": "yoannfleurydev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yoannfleurydev/vscode-gitlab-merge-request-upvotes"
+    "url": "https://github.com/yoannfleurydev/vscode-gitlab-merge-request-upvotes.git"
   },
   "engines": {
     "vscode": "^1.37.0"

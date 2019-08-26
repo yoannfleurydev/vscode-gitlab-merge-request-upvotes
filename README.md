@@ -1,5 +1,7 @@
 # Gitlab Merge Request Upvotes README
 
+!["Official GitLab Merge Request Upvotes Extension Logo"](./images/gitlab-merge-request-upvotes.png)
+
 With **Gitlab Merge Request Upvotes** you can easily follow the upvotes on your
 GitLab's <abbr title="Merge Request">MR</abbr>. The Tree View of the extension
 will show you the upvotes on the <abbr title="Merge Request">MR</abbr> you
