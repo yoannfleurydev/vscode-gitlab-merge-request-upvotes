@@ -76,6 +76,11 @@
           "type": "number",
           "default": 30,
           "description": "The number of seconds before the next tree view refresh"
+        },
+        "gitlabMergeRequestUpvotes.enableRefresh": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable (true) or disable (false) the automatic refresh behavior"
         }
       }
     }

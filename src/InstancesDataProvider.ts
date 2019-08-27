@@ -24,7 +24,7 @@ export class InstancesDataProvider implements vscode.TreeDataProvider<vscode.Tre
     if (element) {
       return Axios.get(`https://${element.label}/api/v4/merge_requests?scope=created_by_me&state=opened`, {
         headers: {
-          Authorization: `Bearer ${this.context.globalState.get(element.label)}`,
+          'Private-Token': this.context.globalState.get(element.label),
         }
       }).then(response => {
         return response.data.map(
