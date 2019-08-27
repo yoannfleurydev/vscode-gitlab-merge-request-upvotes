@@ -29,6 +29,8 @@ This extension contributes the following settings:
 
 * `gitlabMergeRequestUpvotes.refreshInterval`: `number` of seconds between each
   refresh.
+* `gitlabMergeRequestUpvotes.enableRefresh`: `boolean` to enable or disable the
+  auto refresh.
 
 ## Release Notes
 
