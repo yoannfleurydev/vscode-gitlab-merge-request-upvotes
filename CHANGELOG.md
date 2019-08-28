@@ -7,6 +7,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased] - 
 
 - add button to add instance
+- add button to remove instance
 
 ## [0.1.2] - 2019-08-28
 

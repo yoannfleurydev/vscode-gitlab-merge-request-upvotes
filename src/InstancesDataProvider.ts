@@ -67,6 +67,7 @@ export class InstanceTreeItem extends vscode.TreeItem {
     public readonly collapsibleState: vscode.TreeItemCollapsibleState = vscode.TreeItemCollapsibleState.None,
   ) {
     super(label, collapsibleState);
+    this.contextValue = 'instance';
   }
 }
 

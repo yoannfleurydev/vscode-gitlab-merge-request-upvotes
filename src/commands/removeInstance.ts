@@ -1,13 +1,21 @@
 import * as vscode from "vscode";
 import { INSTANCES_KEY } from "../consts/Keys";
 import { updateInstances } from "../utils/updateInstances";
-import { InstancesDataProvider } from "../InstancesDataProvider";
+import { InstancesDataProvider, InstanceTreeItem } from "../InstancesDataProvider";
 
-export 	const removeInstanceHandler = async (context: vscode.ExtensionContext, instanceDataProvider: InstancesDataProvider) => {
+export 	const removeInstanceHandler = async (context: vscode.ExtensionContext, instanceDataProvider: InstancesDataProvider, instanceToRemoveArg?: InstanceTreeItem) => {
   // We get the stored instances.
   const instances: Array<string> = context.globalState.get(INSTANCES_KEY, []);
 
-  const instanceToRemove: string | undefined = await vscode.window.showQuickPick(instances);
+  const instanceToRemove: string | undefined = await (async () => {
+    if (instanceToRemoveArg && instances.includes(instanceToRemoveArg.label)) {
+      return instanceToRemoveArg.label;
+    }
+
+    return await vscode.window.showQuickPick(instances, {
+      placeHolder: 'Select the instance to remove'
+    });
+  })();
 
   // If undefined, it means that the user pressed on Escape. We stop the
   // execution here.

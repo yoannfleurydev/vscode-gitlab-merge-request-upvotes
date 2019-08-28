@@ -52,6 +52,10 @@
       },
       {
         "command": "gitlabMergeRequestUpvotes.removeInstance",
+        "icon": {
+          "light": "resources/light/remove.svg",
+          "dark": "resources/dark/remove.svg"
+        },
         "title": "Remove Instance",
         "category": "GitLab MR Upvotes"
       }
@@ -75,6 +79,13 @@
           "command": "gitlabMergeRequestUpvotes.refreshTreeView",
           "when": "view == instancesTreeView",
           "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "gitlabMergeRequestUpvotes.removeInstance",
+          "when": "view == instancesTreeView && viewItem == instance",
+          "group": "inline"
         }
       ]
     },

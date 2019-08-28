@@ -1,7 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { InstancesDataProvider } from './InstancesDataProvider';
+import { InstancesDataProvider, InstanceTreeItem } from './InstancesDataProvider';
 import { INSTANCES_KEY } from './consts/Keys';
 import { openWebUrlHandler } from './commands/openWebUrl';
 import { ADD_INSTANCE, REMOVE_INSTANCE, REFRESH_INSTANCES, OPEN_WEB_URL } from './consts/Commands';
@@ -17,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.window.registerTreeDataProvider('instancesTreeView', instanceDataProvider);
 
   registerCommand(context, ADD_INSTANCE, () => addInstanceHandler(context, instanceDataProvider));
-  registerCommand(context, REMOVE_INSTANCE, () => removeInstanceHandler(context, instanceDataProvider));
+  registerCommand(context, REMOVE_INSTANCE, (instanceToRemove: InstanceTreeItem) => removeInstanceHandler(context, instanceDataProvider, instanceToRemove));
   registerCommand(context, REFRESH_INSTANCES, () => refreshInstancesHandler(instanceDataProvider));
   registerCommand(context, OPEN_WEB_URL, openWebUrlHandler);
 
