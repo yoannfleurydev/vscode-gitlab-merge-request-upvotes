@@ -28,7 +28,9 @@ export const addInstanceHandler = async (context: vscode.ExtensionContext, insta
 
   const instanceToken: string | undefined = await vscode.window.showInputBox({
     placeHolder: 'Private Token',
-    prompt: "Enter the gitlab instance private token"
+    prompt: "Enter the gitlab instance private token",
+    password: true,
+    ignoreFocusOut: true, // Stay open so the user can go in the browser to copy the token.
   });
 
   // If undefined, it means that the user pressed on Escape. We stop the 

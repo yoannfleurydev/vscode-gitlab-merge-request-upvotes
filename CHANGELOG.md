@@ -4,10 +4,17 @@ All notable changes to the "gitlab-merge-request-upvotes" extension will be docu
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased] - 
+## [0.1.3] - 2019-08-28
+
+### Added
 
 - add button to add instance
 - add button to remove instance
+
+### Changed
+
+- improve the instance add behavior: when loosing focus, the quick input for token will stay open
+- token input is now considered as a password, it won't be readable when pasted or written
 
 ## [0.1.2] - 2019-08-28
 
