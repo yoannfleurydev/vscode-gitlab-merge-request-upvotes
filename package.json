@@ -44,6 +44,10 @@
       {
         "command": "gitlabMergeRequestUpvotes.addInstance",
         "title": "Add instance",
+        "icon": {
+          "light": "resources/light/add.svg",
+          "dark": "resources/dark/add.svg"
+        },
         "category": "GitLab MR Upvotes"
       },
       {
@@ -62,6 +66,11 @@
     },
     "menus": {
       "view/title": [
+        {
+          "command": "gitlabMergeRequestUpvotes.addInstance",
+          "when": "view == instancesTreeView",
+          "group": "navigation"
+        },
         {
           "command": "gitlabMergeRequestUpvotes.refreshTreeView",
           "when": "view == instancesTreeView",
