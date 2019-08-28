@@ -4,7 +4,7 @@ All notable changes to the "gitlab-merge-request-upvotes" extension will be docu
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## [0.1.2] - 2019-08-28
 
 - add refresh button svg
 
