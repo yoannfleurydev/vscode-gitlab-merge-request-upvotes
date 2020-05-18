@@ -1,10 +1,15 @@
 import * as vscode from "vscode";
 import { INSTANCES_KEY } from "../consts/Keys";
 import { updateInstances } from "../utils/updateInstances";
-import { InstancesDataProvider, InstanceTreeItem } from "../InstancesDataProvider";
+import { InstancesDataProvider } from "../InstancesDataProvider";
+import { InstanceTreeItem } from "../impl/TreeItem/InstanceTreeItem";
 
-export 	const removeInstanceHandler = async (context: vscode.ExtensionContext, instanceDataProvider: InstancesDataProvider, instanceToRemoveArg?: InstanceTreeItem) => {
-  // We get the stored instances.
+export  const removeInstanceHandler = async (
+  context: vscode.ExtensionContext,
+  instanceDataProvider: InstancesDataProvider,
+  instanceToRemoveArg?: InstanceTreeItem
+): Promise<void> => {
+  // Get the stored instances.
   const instances: Array<string> = context.globalState.get(INSTANCES_KEY, []);
 
   const instanceToRemove: string | undefined = await (async () => {
@@ -34,4 +39,4 @@ export 	const removeInstanceHandler = async (context: vscode.ExtensionContext, i
 
   // Display a message box to the user
   vscode.window.showInformationMessage(`Instance ${instanceToRemove} removed`);
-}
+};

@@ -3,7 +3,10 @@ import { INSTANCES_KEY } from "../consts/Keys";
 import { InstancesDataProvider } from "../InstancesDataProvider";
 import { updateInstances } from "../utils/updateInstances";
 
-export const addInstanceHandler = async (context: vscode.ExtensionContext, instanceDataProvider: InstancesDataProvider) => {
+export const addInstanceHandler = async (
+  context: vscode.ExtensionContext,
+  instanceDataProvider: InstancesDataProvider
+) => {
   const newInstance: string | undefined = await vscode.window.showInputBox({
     placeHolder: "gitlab.com",
     prompt: "Enter the gitlab instance domain"
@@ -44,4 +47,4 @@ export const addInstanceHandler = async (context: vscode.ExtensionContext, insta
 
   // Display a message box to the user
   vscode.window.showInformationMessage('Instance added');
-}
+};

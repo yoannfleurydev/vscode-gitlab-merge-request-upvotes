@@ -1,10 +1,12 @@
 import * as vscode from 'vscode';
-import Axios from "axios";
-import { ADD_INSTANCE, OPEN_WEB_URL } from './consts/Commands';
+import axios from "axios";
+import { ADD_INSTANCE } from './consts/Commands';
+import { mapMergeRequestToTreeItem, mapInstanceToTreeItem } from './utils/mappers';
+import { InstanceTreeItem } from './impl/TreeItem/InstanceTreeItem';
 
 export class InstancesDataProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
-  private _onDidChangeTreeData: vscode.EventEmitter<InstanceTreeItem | undefined> = new vscode.EventEmitter<InstanceTreeItem | undefined>();
-  readonly onDidChangeTreeData: vscode.Event<InstanceTreeItem | undefined> = this._onDidChangeTreeData.event;
+  private _onDidChangeTreeData = new vscode.EventEmitter<InstanceTreeItem | undefined>();
+  readonly onDidChangeTreeData = this._onDidChangeTreeData.event;
 
   constructor(
     private context: vscode.ExtensionContext,
@@ -19,71 +21,46 @@ export class InstancesDataProvider implements vscode.TreeDataProvider<vscode.Tre
     return element;
   }
 
-  getChildren(element?: InstanceTreeItem): Thenable<vscode.TreeItem[]> {
-
+  async getChildren(element?: InstanceTreeItem): Promise<vscode.TreeItem[]> {
+    // If there is an element, we are inside and instance, so we fetch the
+    // opened Merge Request to get the different data.
     if (element) {
-      return Axios.get(`https://${element.label}/api/v4/merge_requests?scope=created_by_me&state=opened`, {
-        headers: {
-          'Private-Token': this.context.globalState.get(element.label),
+      const response = await axios.get(
+        `https://${element.label}/api/v4/merge_requests?scope=created_by_me&state=opened`,
+        {
+          headers: {
+            'Private-Token': this.context.globalState.get(element.label),
+          }
         }
-      }).then(response => {
-        return response.data.map(
-          (mergeRequest: GitlabMergeRequest) =>  new MergeRequestTreeItem(
-              `${mergeRequest.upvotes} 👍 - ${mergeRequest.title}`,
-              vscode.TreeItemCollapsibleState.None,
-              {
-                command: OPEN_WEB_URL,
-                title: "Open Web URL",
-                arguments: [mergeRequest.web_url]
-              }
-            )
-        );
-      })
+      );
+
+      // If no Merge Request is available, show a TreeItem with an explanation.
+      if (response.data.length === 0) {
+        return [
+          new vscode.TreeItem(
+            'No merge request available for this instance',
+            vscode.TreeItemCollapsibleState.None)
+        ];
+      }
+
+      return response.data.map(mapMergeRequestToTreeItem);
     } else {
-      const instances = this.context.globalState.get(this.instancesKey, []).map(instance => {
-        return new InstanceTreeItem(instance, vscode.TreeItemCollapsibleState.Collapsed)
-      })
+      const instances = this.context.globalState
+        .get(this.instancesKey, [])
+        .map(mapInstanceToTreeItem);
 
       if (instances.length !== 0) {
-        return Promise.resolve(instances);
-      } else {
-
-        // If there is no data, return a tree item that allow the user to add an instance.
-        const noDataTreeItem = new vscode.TreeItem("No data available, click to add an instance");
-        noDataTreeItem.command = {
-          command: ADD_INSTANCE,
-          title: "Add a GitLab instance",
-        }
-
-        return Promise.resolve([noDataTreeItem])
+        return instances;
       }
+
+      // If there is no data, return a tree item that allow the user to add an instance.
+      const noDataTreeItem = new vscode.TreeItem("Add a GitLab instance");
+      noDataTreeItem.command = {
+        command: ADD_INSTANCE,
+        title: "Add a GitLab instance",
+      };
+
+      return [noDataTreeItem];
     }
   }
-}
-
-export class InstanceTreeItem extends vscode.TreeItem {
-  constructor(
-    public readonly label: string,
-    public readonly collapsibleState: vscode.TreeItemCollapsibleState = vscode.TreeItemCollapsibleState.None,
-  ) {
-    super(label, collapsibleState);
-    this.contextValue = 'instance';
-  }
-}
-
-export class MergeRequestTreeItem extends vscode.TreeItem {
-  constructor(
-    public readonly label: string,
-    public readonly collapsibleState: vscode.TreeItemCollapsibleState = vscode.TreeItemCollapsibleState.None,
-    command?: vscode.Command
-  ) {
-    super(label, collapsibleState);
-    this.command = command;
-  }
-}
-
-interface GitlabMergeRequest {
-  title: string;
-  upvotes: number;
-  web_url: string;
 }
