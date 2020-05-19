@@ -12,7 +12,8 @@ import { InstanceTreeItem } from "../impl/TreeItem/InstanceTreeItem";
 export const mapMergeRequestToTreeItem = (mergeRequest: GitlabMergeRequest) => (
  new MergeRequestTreeItem(
    `${mergeRequest.upvotes} 👍 - ${mergeRequest.title}`,
-   vscode.TreeItemCollapsibleState.None, {
+   vscode.TreeItemCollapsibleState.None,
+   {
      command: OPEN_WEB_URL,
      title: "Open Web URL",
      arguments: [mergeRequest.web_url]
