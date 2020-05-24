@@ -4,6 +4,27 @@ All notable changes to the "gitlab-merge-request-upvotes" extension will be docu
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.0] - 2020-05-25
+
+### Deprecated
+
+- deprecated `gitlabMergeRequestUpvotes.refreshInterval` configuration
+- deprecated `gitlabMergeRequestUpvotes.enableRefresh` configuration
+
+### Added
+
+- new feature to handle approvals from GitLab API (only available in GitLab Starter or Bronze)
+- new configuration `gitlab-merge-request-upvotes.refresh.enable` (replacing `gitlabMergeRequestUpvotes.enableRefresh`)
+- new configuration `gitlab-merge-request-upvotes.refresh.interval` (replacing `gitlabMergeRequestUpvotes.refreshInterval`)
+- new configuration `gitlab-merge-request-upvotes.upvotes.type`
+
+## [0.2.0] - 2020-05-18
+
+### Added
+
+- better messages for users when no MR available
+- rewrite part of the code for maintainability
+
 ## [0.1.3] - 2019-08-28
 
 ### Added

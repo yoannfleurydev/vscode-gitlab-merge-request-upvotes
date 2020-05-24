@@ -23,7 +23,9 @@ suite('Extension Test Suite', () => {
       {
         title: "My Merge Request",
         upvotes: 2,
-        web_url: "https://gitlab.com/yoannfleurydev/sample_project"
+        web_url: "https://gitlab.com/yoannfleurydev/sample_project",
+        iid: 420,
+        project_id: 42,
       };
 
     const treeItem = new vscode.TreeItem(

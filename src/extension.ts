@@ -49,18 +49,19 @@ export function activate(context: vscode.ExtensionContext) {
     openWebUrlHandler
   );
 
-  const isAutomaticRefreshEnabled: boolean | undefined = vscode.workspace
-    .getConfiguration("gitlabMergeRequestUpvotes")
-    .get<boolean>("enableRefresh");
+  const isAutomaticRefreshEnabled: boolean = vscode.workspace
+    .getConfiguration("gitlab-merge-request-upvotes")
+    .get<boolean>("refresh.enable", true);
 
   // If false or undefined, we do not want to activate the automatic refresh.
   if (isAutomaticRefreshEnabled) {
     // Refresh the tree view every X sec.
     const seconds: number = vscode.workspace
-      .getConfiguration("gitlabMergeRequestUpvotes")
-      .get<number>("refreshInterval") || 30;
+      .getConfiguration("gitlab-merge-request-upvotes")
+      .get<number>("refresh.interval", 30);
 
-    setInterval(() => refreshInstancesHandler(instanceDataProvider), seconds * 1000);
+    const MILLIS = 1000;
+    setInterval(() => refreshInstancesHandler(instanceDataProvider), seconds * MILLIS);
   }
 }
 
