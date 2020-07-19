@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/yoannfleurydev/vscode-gitlab-merge-request-upvotes/issues"
   },
-  "version": "0.3.0",
+  "version": "0.3.1",
   "publisher": "yoannfleurydev",
   "repository": {
     "type": "git",
@@ -138,6 +138,7 @@
     "lint": "eslint ./src --ext .js,.ts",
     "lint-fix": "eslint ./src --ext .js,.ts --fix",
     "watch": "tsc -watch -p ./",
+    "package": "vsce package",
     "pretest": "yarn run compile",
     "start": "yarn run watch",
     "test": "node ./out/test/runTest.js"
