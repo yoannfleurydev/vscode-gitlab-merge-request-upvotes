@@ -4,6 +4,12 @@ All notable changes to the "gitlab-merge-request-upvotes" extension will be docu
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.1] - 2020-07-19
+
+### Fixed
+
+- allow users to use http(s)
+
 ## [0.3.0] - 2020-05-25
 
 ### Deprecated

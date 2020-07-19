@@ -32,19 +32,27 @@ export class InstancesDataProvider implements vscode.TreeDataProvider<vscode.Tre
   }
 
   async getApprovals(host: string, projectId: number, mergeRequestIid: number): Promise<number> {
-    const endpoint = `https://${host}/api/v4/projects/${projectId}/merge_requests/${mergeRequestIid}/approvals`
+    const endpoint = `${this.isHTTPLabel(host) ? "" : "https://"}${host}/api/v4/projects/${projectId}/merge_requests/${mergeRequestIid}/approvals`
 
     const { data: { approvals_required, approvals_left } } = await axios.get(endpoint, this.getAxiosConfig(host));
 
     return approvals_required - approvals_left;
   }
 
+  isHTTPLabel(label: string) {
+    // The following RegExp check for http:// or https:// at the beginning of
+    // the label.
+    const httpRegExp = /^https?:\/\//;
+
+    return httpRegExp.test(label);
+  }
+
   async getChildren(element?: InstanceTreeItem): Promise<vscode.TreeItem[]> {
     // If there is an element, we are inside and instance, so we fetch the
-    // opened Merge Request to get the different data.
+    // opened Merge Request to get the data.
     if (element) {
       const host = element.label;
-      const endpoint = `https://${host}/api/v4/merge_requests?scope=created_by_me&state=opened`;
+      const endpoint = `${this.isHTTPLabel(host) ? "" : "https://"}${host}/api/v4/merge_requests?scope=created_by_me&state=opened`;
 
       const { data: mergeRequests } = await axios.get(
         endpoint, this.getAxiosConfig(host),
